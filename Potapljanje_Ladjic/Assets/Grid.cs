@@ -59,6 +59,9 @@ public class Grid : MonoBehaviour {
                 c0.transform.parent = transform;
             }
 		}
+
+        //destroy the object used to instantiate the cells
+        Destroy(cellObject);
     }
 
     //so you can see the width and height of the grid on editor
