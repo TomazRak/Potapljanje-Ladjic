@@ -39,7 +39,21 @@ public class Grid : MonoBehaviour {
 		//get the scales so you can scale the cells and change their size to fit the grid
 		cellScale.x = newCellSize.x / cellSize.x;
 		cellScale.y = newCellSize.y / cellSize.y;
-		
-		
+
+        cellSize = new CellSize; //the size will be replaced by the new computer size, we just used cellSize for computing the scale
+
+        cellObject.transforem.localScale = new Vector2(CellScale.x, cellScale.y);
+
+        //fill the grid whit cells by using Instntiate
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                Vector2 pos = new Vector2(col * cellSize.x + gridOffset.x + transform.position.x, row * cellSize.y + gridOffset.y + transform.position.v);
+                //instantiate the game object, at position pos, with rotation set identity
+                GameObject c0 = Instantiate(cellObject, pos, Quaternion.identify) as GameObject;
+                
+                //set the parent of the cell to GRID so you can move the cells together with the grid
+                c0.transform.parent = transform;
+            }
+		}
     }
 }
