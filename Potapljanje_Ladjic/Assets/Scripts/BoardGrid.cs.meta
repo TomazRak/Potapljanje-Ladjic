@@ -1,12 +1,11 @@
 fileFormatVersion: 2
-guid: 8fdde51d405a0ea49a2435ceec99b232
-timeCreated: 1511010817
+guid: 0c337b1a8bcd744d79366a4f79ddc412
+timeCreated: 1511017919
 licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - cellSprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

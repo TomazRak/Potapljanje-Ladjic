@@ -44,7 +44,7 @@ public class Grid : MonoBehaviour {
 
         cellObject.transform.localScale = new Vector2(cellScale.x, cellScale.y);
 
-        //fix the cells to the grid by getting whe half of the grid and cells and add minus expperiment
+        //fix the cells to the grid by getting the half of the grid and cells and add minus expperiment
         gridOffset.x = -(gridSize.x / 2) + cellSize.x /2;
         gridOffset.y = -(gridSize.y / 2) + cellSize.y /2;
 
