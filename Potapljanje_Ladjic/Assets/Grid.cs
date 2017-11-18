@@ -34,7 +34,7 @@ public class Grid : MonoBehaviour {
 		cellSize = cellSprite.bounds.size;
 		
 		//get the new cell size by -> adjust the size off the cells to fit the size of the grid
-		Vector2 newCellSize = new Vector2(gridSize.x / (float) cols, gridSize.y / gridSize.y / (float)rows);
+		Vector2 newCellSize = new Vector2(gridSize.x / (float) cols,  gridSize.y / (float)rows);//doubling gridSize.y
 		
 		//get the scales so you can scale the cells and change their size to fit the grid
 		cellScale.x = newCellSize.x / cellSize.x;
@@ -43,6 +43,10 @@ public class Grid : MonoBehaviour {
         cellSize = newCellSize; //the size will be replaced by the new computer size, we just used cellSize for computing the scale
 
         cellObject.transform.localScale = new Vector2(cellScale.x, cellScale.y);
+
+        //fix the cells to the grid by getting whe half of the grid and cells and add minus expperiment
+        gridOffset.x = -(gridSize.x / 2) + cellSize.x /2;
+        gridOffset.y = -(gridSize.y / 2) + cellSize.y /2;
 
         //fill the grid whit cells by using Instntiate
         for (int row = 0; row < rows; row++) {
