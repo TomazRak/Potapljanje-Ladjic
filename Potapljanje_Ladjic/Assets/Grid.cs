@@ -61,7 +61,7 @@ public class Grid : MonoBehaviour {
 		}
 
         //destroy the object used to instantiate the cells
-        Destroy(cellObject);
+        //Destroy(cellObject);
     }
 
     //so you can see the width and height of the grid on editor
