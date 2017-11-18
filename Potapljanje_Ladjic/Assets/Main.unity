@@ -186,10 +186,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 59327797}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -800, y: -600, z: -15.625}
-  m_LocalScale: {x: 1.5625, y: 1.5625, z: 1.5625}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 361270194}
+  m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &361270190
@@ -277,11 +277,10 @@ RectTransform:
   m_LocalPosition: {x: 512, y: 384, z: 0}
   m_LocalScale: {x: 0.64, y: 0.64, z: 0.64}
   m_Children:
-  - {fileID: 59327801}
   - {fileID: 863739364}
   - {fileID: 1917117199}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -316,7 +315,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 361270194}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -416,7 +415,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1917117198
 GameObject:
@@ -447,7 +446,7 @@ RectTransform:
   m_Children:
   - {fileID: 1973798343}
   m_Father: {fileID: 361270194}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -496,7 +495,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1973798343}
   - component: {fileID: 1973798344}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -532,8 +531,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fdde51d405a0ea49a2435ceec99b232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rows: 2
-  cols: 2
+  rows: 10
+  cols: 10
   gridSize: {x: 10, y: 10}
   gridOffset: {x: 0, y: 0}
-  cellSprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  cellSprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
