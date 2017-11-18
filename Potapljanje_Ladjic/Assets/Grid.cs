@@ -13,9 +13,9 @@ public class Grid : MonoBehaviour {
     [SerializeField]
     private Vector2 gridSize;
     [SerializeField]
-    private Vector2 cellOffset; //offsets celice
+    private Vector2 gridOffset; //offsets celice
 
-    //
+    //about cells
     [SerializeField]
     private Sprite cellSprite;
     private Vector2 cellSize;
@@ -55,5 +55,11 @@ public class Grid : MonoBehaviour {
                 c0.transform.parent = transform;
             }
 		}
+    }
+
+    //so you can see the width and height of the grid on editor
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawCube(transform.position, gridSize);
     }
 }
