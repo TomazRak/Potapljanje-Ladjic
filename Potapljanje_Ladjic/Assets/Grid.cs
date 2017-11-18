@@ -27,5 +27,19 @@ public class Grid : MonoBehaviour {
 
     void InitCells(); {
         GameObject cellObject = new GameObject();
+		//creates an empty object and adds a sprite renderer component -> set the sprite to cellSprite
+		cellObject.AddComponent<SpriteRender>().sprite = cellSprite;
+		
+		//catch the size of sprite
+		cellSize = cellSprite.bonus.size;
+		
+		//get the new cell size by -> adjust the size off the cells to fit the size of the grid
+		Vector2 newCellSize = new Vector2(gridSize.x / (float) cols, gridSize.y / gridSize.y / (float)rows);
+		
+		//get the scales so you can scale the cells and change their size to fit the grid
+		cellScale.x = newCellSize.x / cellSize.x;
+		cellScale.y = newCellSize.y / cellSize.y;
+		
+		
     }
 }
