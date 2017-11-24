@@ -5,12 +5,16 @@ using UnityEngine.UI;
 
 public class BoardGrid : MonoBehaviour {
 
-
+    private GameController controller;
 	public int row=10;
 	public int col=10;
 	public RectTransform Stars;
 	public GameObject Gump;
 
+    public void setController(GameController gc)
+    {
+        controller = gc;
+    }
 	
 
 
