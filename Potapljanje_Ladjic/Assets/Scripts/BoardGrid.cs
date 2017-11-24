@@ -24,6 +24,7 @@ public class BoardGrid : MonoBehaviour {
 				Button.transform.SetParent (Stars);
 				Button.GetComponent<RectTransform>().localScale = Vector3.one;
 				Button.GetComponentInChildren<Text>().text=i+"|"+j;
+                Button.GetComponentInChildren<Text>().color = Color.clear;
 			}
 		}
 

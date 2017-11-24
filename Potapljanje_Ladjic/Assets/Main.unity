@@ -432,7 +432,7 @@ GameObject:
   - component: {fileID: 1822522250}
   m_Layer: 5
   m_Name: Board player2
-  m_TagString: Untagged
+  m_TagString: P2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -540,7 +540,7 @@ GameObject:
   - component: {fileID: 1917117203}
   m_Layer: 5
   m_Name: Board player1
-  m_TagString: Untagged
+  m_TagString: P1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
