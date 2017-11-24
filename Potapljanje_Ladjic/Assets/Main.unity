@@ -645,7 +645,7 @@ GameObject:
   - component: {fileID: 2111730377}
   m_Layer: 0
   m_Name: GameController
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -661,8 +661,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c29e8f0b81725924a86382b22e9c6346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  board1: {fileID: 0}
-  board2: {fileID: 0}
+  board1: {fileID: 1917117198}
+  board2: {fileID: 1822522248}
 --- !u!4 &2111730378
 Transform:
   m_ObjectHideFlags: 0

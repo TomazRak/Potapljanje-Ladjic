@@ -11,20 +11,14 @@ public class Player
 }
 
 public class GameController : MonoBehaviour {
-    public GameObject board1;
-    public GameObject board2;
 
-    // Use this for initialization
-    void Start()
-    {
-        board1 = GameObject.FindWithTag("P1");
-        board2 = GameObject.FindWithTag("P2");
-    }
+    //public GameObject board1;//  = GameObject.FindWithTag("P1").GetComponents;
+    //public GameObject board2;
+    private GameObject go1 = GameObject.Find("/Canvas/Board player1");
+    GameController gc1 = go1.getXontroller();
+    Button[] buttons1 = gc1.GetComponentsInChildren<Button>();
 
-
-
-
-
+    
 
 
 
