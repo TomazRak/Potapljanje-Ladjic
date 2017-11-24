@@ -22,7 +22,8 @@ public class BoardGrid : MonoBehaviour {
 			for (int j = 0; j < col; j++) {
 				GameObject Button = (GameObject)Instantiate (Gump);
 				Button.transform.SetParent (Stars);
-				Button.GetComponent<RectTransform>().localScale = Vector3.one;;
+				Button.GetComponent<RectTransform>().localScale = Vector3.one;
+				Button.GetComponentInChildren<Text>().text=i+"|"+j;
 			}
 		}
 
