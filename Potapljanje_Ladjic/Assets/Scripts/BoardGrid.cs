@@ -15,10 +15,6 @@ public class BoardGrid : MonoBehaviour {
     {
         controller = gc;
     }
-    GameController getController()
-    {
-        return controller;
-    }
 	
 
 
