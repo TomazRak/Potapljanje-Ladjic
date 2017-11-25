@@ -51,9 +51,9 @@ public class Grid : MonoBehaviour {
         //fill the grid whit cells by using Instntiate
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
-                //Vector2 pos = new Vector2(col * cellSize.x + gridOffset.x, row * cellSize.y + gridOffset.y);//stari
+                Vector2 pos = new Vector2(col * cellSize.x + gridOffset.x, row * cellSize.y + gridOffset.y);
                 /*replaced*/
-                Vector2 pos = new Vector2(col * cellSize.x + gridOffset.x + transform.position.x, row * cellSize.y + gridOffset.y + transform.position.y);﻿//novi
+                //Vector2 pos = new Vector2(col * cellSize.x + gridOffset.x + transform.position.x, row * cellSize.y + gridOffset.y + transform.position.y);﻿
                 //instantiate the game object, at position pos, with rotation set identity
                 GameObject c0 = Instantiate(cellObject, pos, Quaternion.identity) as GameObject;
                 
