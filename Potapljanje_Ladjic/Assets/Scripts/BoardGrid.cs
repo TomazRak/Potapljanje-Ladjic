@@ -4,23 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class BoardGrid : MonoBehaviour {
-
-    private GameController controller;
+    
 	public int row=10;
 	public int col=10;
 	public RectTransform Stars;
 	public GameObject Gump;
 
-    public void setController(GameController gc)
-    {
-        controller = gc;
-    }
-	
-
 
 
 	// Use this for initialization
 	void Start () {
+        GameController.Instance.board = gameObject;
+        GameController.Instance.subscribeScriptToGameEventUpdates(this);
 		
 		for (int i = 0; i < row; i++) {
 			for (int j = 0; j < col; j++) {
@@ -39,10 +34,15 @@ public class BoardGrid : MonoBehaviour {
 
 	}
 	
-	// Update is called once per frame
+	// this method will be autommaticly call whenever player clicks on field
 	void Update () {
-		
+		//if board button is pressed invoke GameController function of checking
 
 
 	}
+
+    private void OnDestroy()
+    {
+        GameController.Instance.deSubscribeScriptToGameEventUpdates(this);
+    }
 }
