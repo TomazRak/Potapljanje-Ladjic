@@ -10,6 +10,17 @@ public class Player
     public Button button;
 }
 
+[System.Serializable]
+public class Ladja
+{
+	public string ime;
+	public int Hitcount;
+	public Image slika;
+	static bool potapljena;
+	public int privzetavredonst;
+}
+
+
 public class GameController : MonoBehaviour {
 
     public GameObject board;
