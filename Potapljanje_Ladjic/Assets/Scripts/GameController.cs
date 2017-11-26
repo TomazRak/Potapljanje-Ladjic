@@ -12,6 +12,17 @@ public class Player
     public GameObject opBoard;//opponent board
 }
 
+[System.Serializable]
+public class Ladja
+{
+	public string ime;
+	public int Hitcount;
+	public Image slika;
+	static bool potapljena;
+	public int privzetavredonst;
+}
+
+
 public class GameController : MonoBehaviour {
     public Player player1;
     public Player player2;
