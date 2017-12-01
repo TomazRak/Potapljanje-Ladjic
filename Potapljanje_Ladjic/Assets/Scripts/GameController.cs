@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 [System.Serializable]
 public class Player
@@ -64,6 +65,7 @@ public class GameController : MonoBehaviour {
         player2.myBoard = Instance.board2;
         //player2.opBoard = // TODO : naredi prazno kopijo
         MatrikeDefault();
+        //NapolniMatirkeRandom();
     }
     public void MatrikeDefault() {
         for (int i = 0; i < 10; i++) {
@@ -74,8 +76,42 @@ public class GameController : MonoBehaviour {
             }
         }
     }
-	
-	public void subscribeScriptToGameEventUpdates(MonoBehaviour pScript) {
+    private static readonly System.Random getrandom = new System.Random();
+    public void NapolniMatirkeRandom() {
+        int ladjica_1X2 = 2;//4 so
+        int ladjica_1X3 = 3;//3
+        int ladjica_1X4 = 4;//2
+        int ladjica_1X5 = 5;//1
+
+        int preveri = 0;
+        int orentacija = 0;
+        int x = 0;
+        int y = 0;
+
+        while (preveri != 2) {
+            x = getrandom.Next(10);
+            y = getrandom.Next(10);
+            if (player1.Matrika[x, y] == 0) {
+                player1.Matrika[x, y] = 1;
+                preveri++;
+            }
+            orentacija = getrandom.Next(1, 5);
+            if (orentacija == 1) { //gremo desno y+1
+
+            }
+            if (orentacija == 2) { //gremo dol x+1
+
+            }
+            if (orentacija == 3) { //gremo levo y-1
+
+            }
+            if (orentacija == 4) { //gremo gor x-1
+
+            }
+        }
+    }
+
+    public void subscribeScriptToGameEventUpdates(MonoBehaviour pScript) {
 		eventSubscribedScripts.Add(pScript);
 	}
 	
