@@ -89,7 +89,8 @@ public class GameController : MonoBehaviour {
 
     public void Strel(string celica)
     {
-        SetInteracteble(celica);
+		Debug.Log (celica);
+		SetInteracteble(celica);
         EndTurn(celica);
     }
 

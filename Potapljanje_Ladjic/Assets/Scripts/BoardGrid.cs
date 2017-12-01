@@ -29,7 +29,7 @@ public class BoardGrid : MonoBehaviour {
                 Button.GetComponentInChildren<Text>().text = i + "|" + j;
                 Button.GetComponentInChildren<Text>().color = Color.clear;
 
-                Button.GetComponentInChildren<Button>().onClick.AddListener(delegate () { GameController.Instance.Strel(this.GetComponentInChildren<Text>().text);});
+                Button.GetComponentInChildren<Button>().onClick.AddListener(delegate () { GameController.Instance.Strel(Button.GetComponentInChildren<Text>().text);});
             }
         }
 
