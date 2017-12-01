@@ -10,6 +10,7 @@ public class Player
     public int noSinked;//number of ships player have sinked
     public GameObject myBoard;//my board
     public GameObject opBoard;//opponent board
+    public int[,] Matrika = new int[10, 10];
 }
 
 [System.Serializable]
@@ -62,6 +63,16 @@ public class GameController : MonoBehaviour {
         //player1.opBoard = // TODO : naredi prazno kopijo
         player2.myBoard = Instance.board2;
         //player2.opBoard = // TODO : naredi prazno kopijo
+        MatrikeDefault();
+    }
+    public void MatrikeDefault() {
+        for (int i = 0; i < 10; i++) {
+            for(int j = 0; j < 10; j++)
+            {
+                player1.Matrika[i, j] = 0;
+                player2.Matrika[i, j] = 0;
+            }
+        }
     }
 	
 	public void subscribeScriptToGameEventUpdates(MonoBehaviour pScript) {
