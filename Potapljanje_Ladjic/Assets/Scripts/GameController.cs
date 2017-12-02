@@ -10,7 +10,7 @@ public class Player
 	public string ime;
     public int noShips;//number of ships player have left
     public int noSinked;//number of ships player have sinked
-    public GameObject myBoard;//my board
+	public GameObject myBoard; //my board
     public GameObject opBoard;//opponent board
     public int[,] Matrika = new int[10, 10];
 }
@@ -27,8 +27,8 @@ public class Ladja
 
 
 public class GameController : MonoBehaviour {
-    public Player player1;
-    public Player player2;
+	public Player player1;
+	public Player player2;
     public Player playerTrenutni;
     
     public GameObject board1;
@@ -60,13 +60,13 @@ public class GameController : MonoBehaviour {
     {
 
 		DontDestroyOnLoad( gameObject );
-        Instance.board1 = gameObject;
-        Instance.board2 = gameObject;
+        //Instance.board1 = gameObject;
+        //Instance.board2 = gameObject;
 		player1.ime = "player1";
 		player2.ime = "player2";
-        player1.myBoard = Instance.board1;
+        player1.myBoard = board1;
         //player1.opBoard = // TODO : naredi prazno kopijo
-		player2.myBoard = Instance.board1;
+		player2.myBoard = board2;
         //player2.opBoard = // TODO : naredi prazno kopijo
 		//player1.opBoard= Instance.board2;
 		//player2.opBoard = Instance.board1;
@@ -155,18 +155,16 @@ public class GameController : MonoBehaviour {
 
 		} else {
 			Debug.Log (celica);
-			Debug.Log (board.tag);
+			Debug.Log (playerTrenutni.ime);
 			string[] koordinate = celica.Split ('|');
 			int x = Int32.Parse (koordinate [0]);
 			int y = Int32.Parse (koordinate [1]);
 			if (playerTrenutni.Matrika [x, y] > 0) {
-				Debug.Log (playerTrenutni.ime);
 				Debug.Log ("Zadetek");
 			} else if (playerTrenutni.Matrika [x, y] == -1) {
-				Debug.Log (playerTrenutni.ime);
-				Debug.Log ("To polje je ze bilo vstreljeno");
+				Debug.Log ("To polje je bilo ze vstreljeno ");
+
 			} else if (playerTrenutni.Matrika [x, y] == 0) {
-				Debug.Log (playerTrenutni.ime);
 				Debug.Log ("Zal ste zgresili");
 				EndTurn(celica);
 			}
@@ -214,7 +212,6 @@ public class GameController : MonoBehaviour {
 
     void ChangeSides()
     {
-		Debug.Log (playerTrenutni.myBoard.tag);
         playerTrenutni = (playerTrenutni == player1) ? player2 : player1;
     }
 
