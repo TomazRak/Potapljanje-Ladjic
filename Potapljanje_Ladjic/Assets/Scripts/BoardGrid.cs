@@ -10,8 +10,7 @@ public class BoardGrid : MonoBehaviour {
     public RectTransform Stars;
     public GameObject Gump;
 
-
-    public Button button;
+	public GameObject board;
     public Text buttonText;
 
     private GameController gameController;
@@ -29,7 +28,7 @@ public class BoardGrid : MonoBehaviour {
                 Button.GetComponentInChildren<Text>().text = i + "|" + j;
                 Button.GetComponentInChildren<Text>().color = Color.clear;
 
-                Button.GetComponentInChildren<Button>().onClick.AddListener(delegate () { GameController.Instance.Strel(Button.GetComponentInChildren<Text>().text);});
+                Button.GetComponentInChildren<Button>().onClick.AddListener(delegate () { GameController.Instance.Strel(Button.GetComponentInChildren<Text>().text, board);});
             }
         }
 

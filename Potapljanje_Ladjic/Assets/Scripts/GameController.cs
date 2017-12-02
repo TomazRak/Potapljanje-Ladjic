@@ -7,6 +7,7 @@ using System;
 [System.Serializable]
 public class Player
 {
+	public string ime;
     public int noShips;//number of ships player have left
     public int noSinked;//number of ships player have sinked
     public GameObject myBoard;//my board
@@ -57,25 +58,36 @@ public class GameController : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+
 		DontDestroyOnLoad( gameObject );
         Instance.board1 = gameObject;
         Instance.board2 = gameObject;
+		player1.ime = "player1";
+		player2.ime = "player2";
         player1.myBoard = Instance.board1;
         //player1.opBoard = // TODO : naredi prazno kopijo
-        player2.myBoard = Instance.board2;
+		player2.myBoard = Instance.board1;
         //player2.opBoard = // TODO : naredi prazno kopijo
+		//player1.opBoard= Instance.board2;
+		//player2.opBoard = Instance.board1;
         MatrikeDefault();
+		playerTrenutni = player1;
         //NapolniMatirkeRandom();
     }
     public void MatrikeDefault() {
-        for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 10; i++) {
             for(int j = 0; j < 10; j++)
             {
                 player1.Matrika[i, j] = 0;
                 player2.Matrika[i, j] = 0;
             }
         }
+
+		player1.Matrika [0, 0] = 1;
+		player2.Matrika [0, 0] = 1;
     }
+
+
     private static readonly System.Random getrandom = new System.Random();
     public void NapolniMatirkeRandom() {
         int ladjica_1X2 = 2;//4 so
@@ -91,21 +103,21 @@ public class GameController : MonoBehaviour {
         while (preveri != 2) {
             x = getrandom.Next(10);
             y = getrandom.Next(10);
-            if (player1.Matrika[x, y] == 0) {
-                player1.Matrika[x, y] = 1;
+			if (player1.Matrika[x, y] == 0) {
+				player1.Matrika[x, y] = 1;
                 preveri++;
             }
             orentacija = getrandom.Next(1, 5);
             if (orentacija == 1) { //gremo desno y+1
 
             }
-            if (orentacija == 2) { //gremo dol x+1
+            else if (orentacija == 2) { //gremo dol x+1
 
             }
-            if (orentacija == 3) { //gremo levo y-1
+            else if (orentacija == 3) { //gremo levo y-1
 
             }
-            if (orentacija == 4) { //gremo gor x-1
+            else if (orentacija == 4) { //gremo gor x-1
 
             }
         }
@@ -134,11 +146,35 @@ public class GameController : MonoBehaviour {
         //SetBoardInteractable(true);
     }
 
-    public void Strel(string celica)
+	public void Strel(string celica, GameObject board)
     {
-		Debug.Log (celica);
+
+		if (playerTrenutni.myBoard.tag == board.tag) {
+			Debug.Log ("Streljas svoj bord -.-");
+
+
+		} else {
+			Debug.Log (celica);
+			Debug.Log (board.tag);
+			string[] koordinate = celica.Split ('|');
+			int x = Int32.Parse (koordinate [0]);
+			int y = Int32.Parse (koordinate [1]);
+			if (playerTrenutni.Matrika [x, y] > 0) {
+				Debug.Log (playerTrenutni.ime);
+				Debug.Log ("Zadetek");
+			} else if (playerTrenutni.Matrika [x, y] == -1) {
+				Debug.Log (playerTrenutni.ime);
+				Debug.Log ("To polje je ze bilo vstreljeno");
+			} else if (playerTrenutni.Matrika [x, y] == 0) {
+				Debug.Log (playerTrenutni.ime);
+				Debug.Log ("Zal ste zgresili");
+				EndTurn(celica);
+			}
+
+			playerTrenutni.Matrika [x, y] = -1; //ze vstreljena celica;
+		}
 		SetInteracteble(celica);
-        EndTurn(celica);
+        
     }
 
     public void EndTurn(string celica)
@@ -178,6 +214,7 @@ public class GameController : MonoBehaviour {
 
     void ChangeSides()
     {
+		Debug.Log (playerTrenutni.myBoard.tag);
         playerTrenutni = (playerTrenutni == player1) ? player2 : player1;
     }
 
