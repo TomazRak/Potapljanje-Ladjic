@@ -172,6 +172,7 @@ public class GameController : MonoBehaviour {
 			int y = Int32.Parse (koordinate [1]);
 
 			if (playerTrenutni.Matrika [x, y] > 0) {
+				playerTrenutni.Matrika [x, y] = -1; //ze vstreljena celica;
                 playerTrenutni.noSinked++;
 				Debug.Log ("Zadetek");
                 button.interactable = false;
@@ -184,13 +185,14 @@ public class GameController : MonoBehaviour {
                 button.interactable = false;
             }
             else if (playerTrenutni.Matrika [x, y] == 0) {
+				playerTrenutni.Matrika [x, y] = -1; //ze vstreljena celica;
 				Debug.Log ("Zal ste zgresili");
                 button.interactable = false;
                 button.GetComponent<Image>().color = Color.black;
                 EndTurn();
 			}
 
-			playerTrenutni.Matrika [x, y] = -1; //ze vstreljena celica;
+
 		}
         
     }
