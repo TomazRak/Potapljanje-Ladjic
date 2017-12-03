@@ -66,7 +66,8 @@ public class GameController : MonoBehaviour {
 		player2.myBoard = board2;
         StartGame();
         MatrikeDefault();
-        //NapolniMatirkeRandom();
+        NapolniMatirkeRandom1();
+        NapolniMatirkeRandom2();
     }
     public void MatrikeDefault() {
 		for (int i = 0; i < 10; i++) {
@@ -82,38 +83,208 @@ public class GameController : MonoBehaviour {
     }
 
 
-    private static readonly System.Random getrandom = new System.Random();
-    public void NapolniMatirkeRandom() {
-        int ladjica_1X2 = 2;//4 so
-        int ladjica_1X3 = 3;//3
-        int ladjica_1X4 = 4;//2
-        int ladjica_1X5 = 5;//1
+    public void NapolniMatirkeRandom1() {
+        // recimo imaš ladjice naslednjih dolžin, ki jih moraš razporediti v polje
+        var ladjice = new List<int> { 2, 2, 2, 2, 3, 3, 3, 4, 4, 5 };
 
-        int preveri = 0;
-        int orentacija = 0;
-        int x = 0;
-        int y = 0;
+        // tvoj random number generator
+        var r = new System.Random();
 
-        while (preveri != 2) {
-            x = getrandom.Next(10);
-            y = getrandom.Next(10);
-			if (player1.Matrika[x, y] == 0) {
-				player1.Matrika[x, y] = 1;
-                preveri++;
+        // razporedimo vsako ladjo
+        foreach (int l in ladjice)
+        {
+            bool vstavljeno = false;
+            do
+            {
+               
+                // določi začetne koordinate randomly
+                int x = r.Next(0, player1.Matrika.GetLength(0) - 1);
+                int y = r.Next(0, player1.Matrika.GetLength(1) - 1);
+
+                // če je lokacija x,y zasedena, še enkrat določi točke
+                if (player1.Matrika[x, y] != 0) continue;
+
+                // določi začetno smer randomly
+                int smer = r.Next(0, 3);
+
+                    // preveri če lahko vstaviš to ladjo, sicer ponovi postopek
+                    int dolzina = l - 1;
+                    bool jeProsto = true;
+                    switch (smer)
+                    {
+                        case 0:
+                            // levo
+
+                            // preveri meje
+                            if (x - dolzina < 0) continue;
+
+                            // preveri prostost vseh lokacij levo od začetne lokacije
+                            for (int i = x; i >= x - dolzina; i--)
+                            {
+                                // če najdeš katerokoli lokacijo, ki ni prosta, treba ponoviti vse skupaj
+                                if (player1.Matrika[i, y] != 0)
+                                {
+                                    jeProsto = false;
+                                    break;
+                                }
+                            }
+                            if (jeProsto == false) continue;
+
+                            // vstavi v polje
+                            for (int i = x; i >= x - dolzina; i--)
+                                player1.Matrika[i, y] = l;
+                            break;
+                        case 1:
+                            // dol
+                            if (y + dolzina >= player1.Matrika.GetLength(1)) continue;
+
+                            for (int i = y; i <= y + dolzina; i++)
+                                if (player1.Matrika[x, i] != 0)
+                                {
+                                    jeProsto = false;
+                                    break;
+                                }
+                            if (jeProsto == false) continue;
+                            for (int i = y; i <= y + dolzina; i++)
+                                player1.Matrika[x, i] = l;
+                            break;
+                        case 2:
+                            // desno
+                            if (x + dolzina >= player1.Matrika.GetLength(0)) continue;
+
+                            for (int i = x; i <= x + dolzina; i++)
+                                if (player1.Matrika[i, y] != 0)
+                                {
+                                    jeProsto = false;
+                                    break;
+                                }
+                            if (jeProsto == false) continue;
+                            for (int i = x; i <= x + dolzina; i++)
+                                player1.Matrika[i, y] = l;
+                            break;
+                        case 3:
+                            // gor
+                            if (y - dolzina < 0) continue;
+
+                            for (int i = y; i >= y - dolzina; i--)
+                                if (player1.Matrika[x, i] != 0)
+                                {
+                                    jeProsto = false;
+                                    break;
+                                }
+                            if (jeProsto == false) continue;
+                            for (int i = y; i >= y - dolzina; i--)
+                                player1.Matrika[x, i] = l;
+
+                            break;
+                    }
+
+                    vstavljeno = true;             
             }
-            orentacija = getrandom.Next(1, 5);
-            if (orentacija == 1) { //gremo desno y+1
+            while (vstavljeno == false);
+        }
+    }
 
-            }
-            else if (orentacija == 2) { //gremo dol x+1
+    public void NapolniMatirkeRandom2()
+    {
+        // recimo imaš ladjice naslednjih dolžin, ki jih moraš razporediti v polje
+        var ladjice = new List<int> { 2, 2, 2, 2, 3, 3, 3, 4, 4, 5 };
 
-            }
-            else if (orentacija == 3) { //gremo levo y-1
+        // tvoj random number generator
+        var r = new System.Random();
 
-            }
-            else if (orentacija == 4) { //gremo gor x-1
+        // razporedimo vsako ladjo
+        foreach (int l in ladjice)
+        {
+            bool vstavljeno = false;
+            do
+            {
 
+                // določi začetne koordinate randomly
+                int x = r.Next(0, player1.Matrika.GetLength(0) - 1);
+                int y = r.Next(0, player1.Matrika.GetLength(0) - 1);
+
+                // če je lokacija x,y zasedena, še enkrat določi točke
+                if (player2.Matrika[x, y] != 0) continue;
+
+                // določi začetno smer randomly
+                int smer = r.Next(0, 3);
+
+                // preveri če lahko vstaviš to ladjo, sicer ponovi postopek
+                int dolzina = l - 1;
+                bool jeProsto = true;
+                switch (smer)
+                {
+                    case 0:
+                        // levo
+
+                        // preveri meje
+                        if (x - dolzina < 0) continue;
+
+                        // preveri prostost vseh lokacij levo od začetne lokacije
+                        for (int i = x; i >= x - dolzina; i--)
+                        {
+                            // če najdeš katerokoli lokacijo, ki ni prosta, treba ponoviti vse skupaj
+                            if (player2.Matrika[i, y] != 0)
+                            {
+                                jeProsto = false;
+                                break;
+                            }
+                        }
+                        if (jeProsto == false) continue;
+
+                        // vstavi v polje
+                        for (int i = x; i >= x - dolzina; i--)
+                            player2.Matrika[i, y] = l;
+                        break;
+                    case 1:
+                        // dol
+                        if (y + dolzina >= player2.Matrika.GetLength(1)) continue;
+
+                        for (int i = y; i <= y + dolzina; i++)
+                            if (player1.Matrika[x, i] != 0)
+                            {
+                                jeProsto = false;
+                                break;
+                            }
+                        if (jeProsto == false) continue;
+                        for (int i = y; i <= y + dolzina; i++)
+                            player2.Matrika[x, i] = l;
+                        break;
+                    case 2:
+                        // desno
+                        if (x + dolzina >= player2.Matrika.GetLength(0)) continue;
+
+                        for (int i = x; i <= x + dolzina; i++)
+                            if (player2.Matrika[i, y] != 0)
+                            {
+                                jeProsto = false;
+                                break;
+                            }
+                        if (jeProsto == false) continue;
+                        for (int i = x; i <= x + dolzina; i++)
+                            player2.Matrika[i, y] = l;
+                        break;
+                    case 3:
+                        // gor
+                        if (y - dolzina < 0) continue;
+
+                        for (int i = y; i >= y - dolzina; i--)
+                            if (player2.Matrika[x, i] != 0)
+                            {
+                                jeProsto = false;
+                                break;
+                            }
+                        if (jeProsto == false) continue;
+                        for (int i = y; i >= y - dolzina; i--)
+                            player2.Matrika[x, i] = l;
+
+                        break;
+                }
+
+                vstavljeno = true;
             }
+            while (vstavljeno == false);
         }
     }
 
