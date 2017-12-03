@@ -60,18 +60,12 @@ public class GameController : MonoBehaviour {
     {
 
 		DontDestroyOnLoad( gameObject );
-        //Instance.board1 = gameObject;
-        //Instance.board2 = gameObject;
 		player1.ime = "player1";
 		player2.ime = "player2";
         player1.myBoard = board1;
-        //player1.opBoard = // TODO : naredi prazno kopijo
 		player2.myBoard = board2;
-        //player2.opBoard = // TODO : naredi prazno kopijo
-		//player1.opBoard= Instance.board2;
-		//player2.opBoard = Instance.board1;
+        StartGame();
         MatrikeDefault();
-		playerTrenutni = player1;
         //NapolniMatirkeRandom();
     }
     public void MatrikeDefault() {
@@ -143,71 +137,96 @@ public class GameController : MonoBehaviour {
 
     void StartGame()
     {
-        //SetBoardInteractable(true);
+        playerTrenutni = player1;
+        SetVisible(board1, false);
+        SetVisible(board2, true);
+    }
+    
+    public Button getButtonByName(GameObject board, string txt)
+    {
+        Transform t = board.transform;
+        foreach (Transform tr in t)
+        {
+            if (tr.name == txt)
+            {
+                return tr.GetComponent<Button>();
+            }
+        }
+        return null;
     }
 
-	public void Strel(string celica, GameObject board)
+    public void Strel(string txt, GameObject board)
     {
+        Button button = getButtonByName(board, txt);
 
-		if (playerTrenutni.myBoard.tag == board.tag) {
+        if (playerTrenutni.myBoard.tag == board.tag) {
 			Debug.Log ("Streljas svoj bord -.-");
 
 
-		} else {
-			Debug.Log (celica);
+		}
+        else {
+			Debug.Log (txt);
 			Debug.Log (playerTrenutni.ime);
-			string[] koordinate = celica.Split ('|');
+			string[] koordinate = txt.Split ('|');
 			int x = Int32.Parse (koordinate [0]);
 			int y = Int32.Parse (koordinate [1]);
-			if (playerTrenutni.Matrika [x, y] > 0) {
-				Debug.Log ("Zadetek");
-			} else if (playerTrenutni.Matrika [x, y] == -1) {
-				Debug.Log ("To polje je bilo ze vstreljeno ");
 
-			} else if (playerTrenutni.Matrika [x, y] == 0) {
+			if (playerTrenutni.Matrika [x, y] > 0) {
+                playerTrenutni.noSinked++;
+				Debug.Log ("Zadetek");
+                button.interactable = false;
+                button.GetComponent<Image>().color = Color.black;
+                button.GetComponentInChildren<Text>().text = "X";
+                button.GetComponentInChildren<Text>().color = Color.red;
+            }
+            else if (playerTrenutni.Matrika [x, y] == -1) {
+				Debug.Log ("To polje je bilo ze vstreljeno ");
+                button.interactable = false;
+            }
+            else if (playerTrenutni.Matrika [x, y] == 0) {
 				Debug.Log ("Zal ste zgresili");
-				EndTurn(celica);
+                button.interactable = false;
+                button.GetComponent<Image>().color = Color.black;
+                EndTurn();
 			}
 
 			playerTrenutni.Matrika [x, y] = -1; //ze vstreljena celica;
 		}
-		SetInteracteble(celica);
         
     }
 
-    public void EndTurn(string celica)
+    public void CheckGameOver()
     {
-        bool score = false;
-        /*ChangeSides();
-        TODO : 
-        if(playerTrenutni.board1[celica i][celica j]) == true)//PREDSTAVIT BOD TREBA BOARD KOT INT[][]
+        if (playerTrenutni.noSinked >= 10)
         {
-            score = true;
-        }
-        ChangeSides();*/
-        if(score)
-        {
-            playerTrenutni.noSinked++;
-        }
-        if (playerTrenutni.noSinked >= 1)// UNDONE: >= 10
-        {
-            // TODO : Game Over screen
             Debug.Log("GAME OVER");
         }
-        ChangeSides();
     }
 
-    public void SetInteracteble(string celica)
+    public void EndTurn()
     {
-        /*foreach (GameObject btn in playerTrenutni.opBoard.GetComponentInChildren<GameObject>())// TODO : set button interacteble = false
-        {
-            if (btn.GetComponentInChildren<Text>().text == celica)
-            {
-                btn.;
-                break;
-            }
-        }*/
+        CheckGameOver();//pogoji za zmago
+        SetVisible(playerTrenutni.myBoard, true);//trenutno polje omogoči
+        ChangeSides();//zamenjaj stran
+        SetVisible(playerTrenutni.myBoard, false);//trenutno polje onemogoči
+    }
 
+    public void SetVisible(GameObject board, bool toggle)
+    {
+        Transform t = board.transform;
+        for(int i=0; i<10; i++)
+        {
+            for(int j=0; j<10; j++)
+            {
+                foreach (Transform tr in t)
+                {
+                    if (tr.name == i + "|" + j)
+                    {
+                        tr.GetComponent<Button>().gameObject.SetActive(toggle);
+                    }
+                }
+            }
+        }
     }
 
     void ChangeSides()

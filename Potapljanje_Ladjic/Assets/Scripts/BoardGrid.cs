@@ -25,10 +25,11 @@ public class BoardGrid : MonoBehaviour {
                 GameObject Button = (GameObject)Instantiate(Gump);
                 Button.transform.SetParent(Stars);
                 Button.GetComponent<RectTransform>().localScale = Vector3.one;
-                Button.GetComponentInChildren<Text>().text = i + "|" + j;
+                //Button.GetComponentInChildren<Text>().text = i + "|" + j;
                 Button.GetComponentInChildren<Text>().color = Color.clear;
 
-                Button.GetComponentInChildren<Button>().onClick.AddListener(delegate () { GameController.Instance.Strel(Button.GetComponentInChildren<Text>().text, board);});
+                Button.name = i + "|" + j;
+                Button.GetComponentInChildren<Button>().onClick.AddListener(delegate () { GameController.Instance.Strel(Button.name, board);});
             }
         }
 
