@@ -34,6 +34,13 @@ public class GameController : MonoBehaviour {
     public GameObject board1;
     public GameObject board2;
 
+	public GameObject glavniMeni;
+	public GameObject HostMeni;
+	public GameObject ConnectMeni;
+
+	public GameObject ServerPrefab;
+	public GameObject ClinetPrefab;
+
     public List <MonoBehaviour> eventSubscribedScripts= new List<MonoBehaviour>();
 	public int gameEventID = 0;
 	private static GameController instance;//gameController SINGLETONE
@@ -58,7 +65,9 @@ public class GameController : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-
+		
+		HostMeni.SetActive (false);
+		ConnectMeni.SetActive (false);
 		DontDestroyOnLoad( gameObject );
 		player1.ime = "player1";
 		player2.ime = "player2";
@@ -69,6 +78,63 @@ public class GameController : MonoBehaviour {
         NapolniMatirkeRandom1();
         NapolniMatirkeRandom2();
     }
+
+
+
+	//za server in client
+
+	public void OnConnectButton(){
+		glavniMeni.SetActive (false);
+		ConnectMeni.SetActive (true);
+	}
+
+	public void OnHostButton(){
+
+		try {
+			Server s=Instantiate(ServerPrefab).GetComponent<Server>();
+			s.init();
+
+			Client c = Instantiate(ClinetPrefab).GetComponent<Client>();
+			c.povezan("127.0.0.1");
+
+		}
+
+		catch (Exception ex){
+			Debug.Log (ex.Message);
+		}
+
+		glavniMeni.SetActive (false);
+		HostMeni.SetActive (true);
+	}
+
+	public void OnConnectHostButton(){
+		string hostAddress = GameObject.Find ("HostInput").GetComponent<InputField> ().text;
+		if (hostAddress == "") {
+			hostAddress = "127.0.0.1";
+		}
+
+		try 
+		{
+			
+			Client c = Instantiate(ClinetPrefab).GetComponent<Client>();
+			c.povezan(hostAddress);
+			ConnectMeni.SetActive(false);
+			glavniMeni.SetActive(true);
+		}
+
+		catch (Exception ex){
+			Debug.Log (ex.Message);
+		}
+	}
+
+	public void OnBackButton(){
+		glavniMeni.SetActive (true);
+		ConnectMeni.SetActive (false);
+		HostMeni.SetActive (false);
+	}
+
+
+
     public void MatrikeDefault() {
 		for (int i = 0; i < 10; i++) {
             for(int j = 0; j < 10; j++)
@@ -78,8 +144,8 @@ public class GameController : MonoBehaviour {
             }
         }
 
-		player1.Matrika [0, 0] = 1;
-		player2.Matrika [0, 0] = 1;
+		//player1.Matrika [0, 0] = 1;
+		//player2.Matrika [0, 0] = 1;
     }
 
 
@@ -309,8 +375,8 @@ public class GameController : MonoBehaviour {
     void StartGame()
     {
         playerTrenutni = player1;
-        SetVisible(board1, false);
-        SetVisible(board2, true);
+        //SetVisible(board1, false);
+        //SetVisible(board2, true);
     }
     
     public Button getButtonByName(GameObject board, string txt)
@@ -379,9 +445,9 @@ public class GameController : MonoBehaviour {
     public void EndTurn()
     {
         CheckGameOver();//pogoji za zmago
-        SetVisible(playerTrenutni.myBoard, true);//trenutno polje omogoči
+        //SetVisible(playerTrenutni.myBoard, true);//trenutno polje omogoči
         ChangeSides();//zamenjaj stran
-        SetVisible(playerTrenutni.myBoard, false);//trenutno polje onemogoči
+        //SetVisible(playerTrenutni.myBoard, false);//trenutno polje onemogoči
     }
 
     public void SetVisible(GameObject board, bool toggle)
