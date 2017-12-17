@@ -416,6 +416,7 @@ public class GameController : MonoBehaviour {
                 button.GetComponent<Image>().color = Color.black;
                 button.GetComponentInChildren<Text>().text = "X";
                 button.GetComponentInChildren<Text>().color = Color.red;
+                //ResetGameBoard();//TODO : Delete------------------------------------------------------------------------------------------------------------------------------------------------
             }
             else if (playerTrenutni.Matrika [x, y] == -1) {
 				Debug.Log ("To polje je bilo ze vstreljeno ");
@@ -439,6 +440,7 @@ public class GameController : MonoBehaviour {
         if (playerTrenutni.noSinked >= 10)
         {
             Debug.Log("GAME OVER");
+            ResetGameBoard();
         }
     }
 
@@ -468,6 +470,31 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    public void NewBoard(GameObject board)
+    {
+        Button button;
+        Transform t = board.transform;
+        for (int i = 0; i < 10; i++)
+        {
+            for (int j = 0; j < 10; j++)
+            {
+                foreach (Transform tr in t)
+                {
+                    if (tr.name == i + "|" + j)
+                    {
+                        button = tr.GetComponent<Button>();
+
+                        tr.GetComponent<Button>();
+                        button.interactable = true;
+                        button.GetComponent<Image>().color = Color.clear;
+                        button.GetComponentInChildren<Text>().text = "";
+                        button.GetComponentInChildren<Text>().color = Color.clear;
+                    }
+                }
+            }
+        }
+    }
+
     void ChangeSides()
     {
         playerTrenutni = (playerTrenutni == player1) ? player2 : player1;
@@ -478,6 +505,19 @@ public class GameController : MonoBehaviour {
     void Update()
     {
 
+    }
+
+    void ResetGameBoard()
+    {
+        
+        MatrikeDefault();
+        NapolniMatirkeRandom1();
+        NapolniMatirkeRandom2();
+        NewBoard(player1.myBoard);
+        NewBoard(player2.myBoard);
+        StartGame();
+        SetVisible(board1, true);
+        SetVisible(board2, true);
     }
     
 }
