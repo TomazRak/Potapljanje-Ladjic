@@ -14,6 +14,8 @@ public class Client : MonoBehaviour {
 	private StreamWriter writer;
 	private StreamReader reader;
 
+	public bool isHost=false;
+
 	public bool povezan(string host){
 		if (obstaja) {
 			return false;
@@ -61,7 +63,7 @@ public class Client : MonoBehaviour {
 	}
 
 	private void Beri(string msg){
-		Debug.Log (msg);
+		Poslji (((isHost) ? 1 : 0).ToString ());
 	}
 
 	private void OnApplicationQuit(){
