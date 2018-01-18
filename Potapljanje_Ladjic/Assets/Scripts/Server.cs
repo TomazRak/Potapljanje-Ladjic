@@ -13,6 +13,9 @@ public class Server : MonoBehaviour {
 
 	private List<Povezava> povezave;
 	private List<Povezava> odstranjeni;
+	public int[,] matrikaA = new int[10, 10];
+	public int[,] matrikaB = new int[10, 10];
+	int SteviloPovezav = 0;
 
 	private TcpListener server;
 	private bool started;
@@ -84,7 +87,9 @@ public class Server : MonoBehaviour {
 	}
 
 	private void Sprejmi(Povezava tc, string nekis){
-		Debug.Log (nekis);
+		//Debug.Log (nekis);
+		Broadcast (nekis, povezave);
+		//tc.isHost = (nekis == "0" ? false : true);
 	}
 
 	private void poslusaj(){
@@ -99,6 +104,13 @@ public class Server : MonoBehaviour {
 		poslusaj();
 
 		Debug.Log("Povezava je uspela");
+		SteviloPovezav++;
+		if (SteviloPovezav == 2) {
+			MatrikeDefault ();
+			NapolniMatirkeRandom1 ();
+			NapolniMatirkeRandom2 ();
+		}
+
 	}
 
 	private bool jePovezan(TcpClient c){
@@ -120,11 +132,250 @@ public class Server : MonoBehaviour {
 			return false;
 		}
 	}
+
+
+	public void MatrikeDefault() {
+		for (int i = 0; i < 10; i++) {
+			for(int j = 0; j < 10; j++)
+			{
+				matrikaA[i, j] = 0;
+				matrikaB[i, j] = 0;
+			}
+		}
+
+		//player1.Matrika [0, 0] = 1;
+		//player2.Matrika [0, 0] = 1;
+	}
+
+	public void NapolniMatirkeRandom1() {
+		// recimo imaš ladjice naslednjih dolžin, ki jih moraš razporediti v polje
+		var ladjice = new List<int> { 2, 2, 2, 2, 3, 3, 3, 4, 4, 5 };
+
+		// tvoj random number generator
+		var r = new System.Random();
+
+		// razporedimo vsako ladjo
+		foreach (int l in ladjice)
+		{
+			bool vstavljeno = false;
+			do
+			{
+
+				// določi začetne koordinate randomly
+				int x = r.Next(0, matrikaA.GetLength(0) - 1);
+				int y = r.Next(0, matrikaA.GetLength(1) - 1);
+
+				// če je lokacija x,y zasedena, še enkrat določi točke
+				if (matrikaA[x, y] != 0) continue;
+
+				// določi začetno smer randomly
+				int smer = r.Next(0, 3);
+
+				// preveri če lahko vstaviš to ladjo, sicer ponovi postopek
+				int dolzina = l - 1;
+				bool jeProsto = true;
+				switch (smer)
+				{
+				case 0:
+					// levo
+
+					// preveri meje
+					if (x - dolzina < 0) continue;
+
+					// preveri prostost vseh lokacij levo od začetne lokacije
+					for (int i = x; i >= x - dolzina; i--)
+					{
+						// če najdeš katerokoli lokacijo, ki ni prosta, treba ponoviti vse skupaj
+						if (matrikaA[i, y] != 0)
+						{
+							jeProsto = false;
+							break;
+						}
+					}
+					if (jeProsto == false) continue;
+
+					// vstavi v polje
+					for (int i = x; i >= x - dolzina; i--)
+						matrikaA[i, y] = l;
+					break;
+				case 1:
+					// dol
+					if (y + dolzina >= matrikaA.GetLength(1)) continue;
+
+					for (int i = y; i <= y + dolzina; i++)
+						if (matrikaA[x, i] != 0)
+						{
+							jeProsto = false;
+							break;
+						}
+					if (jeProsto == false) continue;
+					for (int i = y; i <= y + dolzina; i++)
+						matrikaA[x, i] = l;
+					break;
+				case 2:
+					// desno
+					if (x + dolzina >= matrikaA.GetLength(0)) continue;
+
+					for (int i = x; i <= x + dolzina; i++)
+						if (matrikaA[i, y] != 0)
+						{
+							jeProsto = false;
+							break;
+						}
+					if (jeProsto == false) continue;
+					for (int i = x; i <= x + dolzina; i++)
+						matrikaA[i, y] = l;
+					break;
+				case 3:
+					// gor
+					if (y - dolzina < 0) continue;
+
+					for (int i = y; i >= y - dolzina; i--)
+						if (matrikaA[x, i] != 0)
+						{
+							jeProsto = false;
+							break;
+						}
+					if (jeProsto == false) continue;
+					for (int i = y; i >= y - dolzina; i--)
+						matrikaA[x, i] = l;
+
+					break;
+				}
+
+				vstavljeno = true;             
+			}
+			while (vstavljeno == false);
+		}
+
+		string posljiMA = "M1";
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				posljiMA = posljiMA + "|" + matrikaA [i, j];
+			}
+		}
+
+		Broadcast (posljiMA, povezave);
+	}
+
+	public void NapolniMatirkeRandom2()
+	{
+		// recimo imaš ladjice naslednjih dolžin, ki jih moraš razporediti v polje
+		var ladjice = new List<int> { 2, 2, 2, 2, 3, 3, 3, 4, 4, 5 };
+
+		// tvoj random number generator
+		var r = new System.Random();
+
+		// razporedimo vsako ladjo
+		foreach (int l in ladjice)
+		{
+			bool vstavljeno = false;
+			do
+			{
+
+				// določi začetne koordinate randomly
+				int x = r.Next(0, matrikaB.GetLength(0) - 1);
+				int y = r.Next(0, matrikaB.GetLength(0) - 1);
+
+				// če je lokacija x,y zasedena, še enkrat določi točke
+				if (matrikaB[x, y] != 0) continue;
+
+				// določi začetno smer randomly
+				int smer = r.Next(0, 3);
+
+				// preveri če lahko vstaviš to ladjo, sicer ponovi postopek
+				int dolzina = l - 1;
+				bool jeProsto = true;
+				switch (smer)
+				{
+				case 0:
+					// levo
+
+					// preveri meje
+					if (x - dolzina < 0) continue;
+
+					// preveri prostost vseh lokacij levo od začetne lokacije
+					for (int i = x; i >= x - dolzina; i--)
+					{
+						// če najdeš katerokoli lokacijo, ki ni prosta, treba ponoviti vse skupaj
+						if (matrikaB[i, y] != 0)
+						{
+							jeProsto = false;
+							break;
+						}
+					}
+					if (jeProsto == false) continue;
+
+					// vstavi v polje
+					for (int i = x; i >= x - dolzina; i--)
+						matrikaB[i, y] = l;
+					break;
+				case 1:
+					// dol
+					if (y + dolzina >= matrikaB.GetLength(1)) continue;
+
+					for (int i = y; i <= y + dolzina; i++)
+						if (matrikaB[x, i] != 0)
+						{
+							jeProsto = false;
+							break;
+						}
+					if (jeProsto == false) continue;
+					for (int i = y; i <= y + dolzina; i++)
+						matrikaB[x, i] = l;
+					break;
+				case 2:
+					// desno
+					if (x + dolzina >= matrikaB.GetLength(0)) continue;
+
+					for (int i = x; i <= x + dolzina; i++)
+						if (matrikaB[i, y] != 0)
+						{
+							jeProsto = false;
+							break;
+						}
+					if (jeProsto == false) continue;
+					for (int i = x; i <= x + dolzina; i++)
+						matrikaB[i, y] = l;
+					break;
+				case 3:
+					// gor
+					if (y - dolzina < 0) continue;
+
+					for (int i = y; i >= y - dolzina; i--)
+						if (matrikaB[x, i] != 0)
+						{
+							jeProsto = false;
+							break;
+						}
+					if (jeProsto == false) continue;
+					for (int i = y; i >= y - dolzina; i--)
+						matrikaB[x, i] = l;
+
+					break;
+				}
+
+				vstavljeno = true;
+			}
+			while (vstavljeno == false);
+		}
+
+		string posljiMB = "M2";
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				posljiMB = posljiMB + "|" + matrikaB [i, j];
+			}
+		}
+
+		Broadcast (posljiMB, povezave);
+
+	}
+
 }
 
 
 public class Povezava {
-	public string clinetIme;
+	public bool isHost;
 	public TcpClient tcp;
 
 	public Povezava(TcpClient t){

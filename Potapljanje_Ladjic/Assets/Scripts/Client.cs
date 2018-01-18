@@ -16,6 +16,24 @@ public class Client : MonoBehaviour {
 
 	public bool isHost=false;
 
+	private static Client instance;
+	public static Client Instance{
+		get {
+			if ( instance == null)
+			{
+				instance = FindObjectOfType<Client>();
+				#if UNITY_EDITOR
+				if (FindObjectsOfType<Client>().Length > 1)
+				{
+					Debug.LogError("There is more than one game controller in the scene");
+				}
+				#endif
+			}
+			return instance;
+		}
+	}
+
+
 	public bool povezan(string host){
 		if (obstaja) {
 			return false;
@@ -63,7 +81,13 @@ public class Client : MonoBehaviour {
 	}
 
 	private void Beri(string msg){
-		Poslji (((isHost) ? 1 : 0).ToString ());
+		//Poslji (((isHost) ? 1 : 0).ToString ());
+		var gc=FindObjectOfType<GameController>();
+		//Debug.Log ("client");
+		//Debug.Log (msg);
+
+		gc.Sprejmi (msg);
+
 	}
 
 	private void OnApplicationQuit(){

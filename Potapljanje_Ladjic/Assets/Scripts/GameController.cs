@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class Player
@@ -65,6 +66,8 @@ public class GameController : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+
+		//Client c = FindObjectOfType<Client> ();
 		
 		HostMeni.SetActive (false);
 		ConnectMeni.SetActive (false);
@@ -75,8 +78,8 @@ public class GameController : MonoBehaviour {
 		player2.myBoard = board2;
         StartGame();
         MatrikeDefault();
-        NapolniMatirkeRandom1();
-        NapolniMatirkeRandom2();
+        //NapolniMatirkeRandom1();
+        //NapolniMatirkeRandom2();
     }
 
 
@@ -95,6 +98,7 @@ public class GameController : MonoBehaviour {
 			s.init();
 
 			Client c = Instantiate(ClinetPrefab).GetComponent<Client>();
+			c.isHost=true;
 			c.povezan("127.0.0.1");
 
 		}
@@ -392,6 +396,37 @@ public class GameController : MonoBehaviour {
         return null;
     }
 
+
+
+	public void Sprejmi(string ns){
+		string[] sprejeto = ns.Split ('|');
+
+		if (sprejeto [0] == "P1" || sprejeto [0] == "P2") {
+			string ntxt = sprejeto [1] + "|" + sprejeto [2];
+			GameObject nekiboard;
+			if (sprejeto [0] == board1.tag) {
+				nekiboard = board1;
+			} else {
+				nekiboard = board2;
+			}
+
+			Strel (ntxt, nekiboard);
+
+		} else if (sprejeto [0] == "M1") {
+			for (int i = 0; i < 10; i++) {
+				for (int j = 0; j < 10; j++) {
+					player1.Matrika [i, j] = Int32.Parse(sprejeto [i + j + 1]);
+				}
+			}
+		} else if (sprejeto [0] == "M2") {
+			for (int i = 0; i < 10; i++) {
+				for (int j = 0; j < 10; j++) {
+					player2.Matrika [i, j] = Int32.Parse(sprejeto [i + j + 1]);
+				}
+			}
+		}
+	}
+
     public void Strel(string txt, GameObject board)
     {
         Button button = getButtonByName(board, txt);
@@ -519,5 +554,7 @@ public class GameController : MonoBehaviour {
         SetVisible(board1, true);
         SetVisible(board2, true);
     }
+
+
     
 }

@@ -28,8 +28,14 @@ public class BoardGrid : MonoBehaviour {
                 //Button.GetComponentInChildren<Text>().text = i + "|" + j;
                 Button.GetComponentInChildren<Text>().color = Color.clear;
 
+
+				string zaposlat=board.tag+"|"+i+"|"+j;
+
                 Button.name = i + "|" + j;
-                Button.GetComponentInChildren<Button>().onClick.AddListener(delegate () { GameController.Instance.Strel(Button.name, board);});
+                //Button.GetComponentInChildren<Button>().onClick.AddListener(delegate () { GameController.Instance.Strel(Button.name, board);});
+				Button.GetComponentInChildren<Button> ().onClick.AddListener (delegate () {
+					Client.Instance.Poslji(zaposlat);
+				});
             }
         }
 
