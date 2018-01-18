@@ -111,6 +111,7 @@ public class Server : MonoBehaviour {
 			NapolniMatirkeRandom2 ();
 		}
 
+
 	}
 
 	private bool jePovezan(TcpClient c){
@@ -248,14 +249,15 @@ public class Server : MonoBehaviour {
 			while (vstavljeno == false);
 		}
 
-		string posljiMA = "M1";
+
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
-				posljiMA = posljiMA + "|" + matrikaA [i, j];
+				string posljiMA = "M1|" + i + "|" + j + "|" + matrikaA [i, j];
+				Broadcast (posljiMA, povezave);
 			}
 		}
 
-		Broadcast (posljiMA, povezave);
+
 	}
 
 	public void NapolniMatirkeRandom2()
@@ -360,14 +362,15 @@ public class Server : MonoBehaviour {
 			while (vstavljeno == false);
 		}
 
-		string posljiMB = "M2";
+
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
-				posljiMB = posljiMB + "|" + matrikaB [i, j];
+				string posljiMB = "M2|" + i + "|" + j + "|" + matrikaA [i, j];
+				Broadcast (posljiMB, povezave);
 			}
 		}
 
-		Broadcast (posljiMB, povezave);
+
 
 	}
 
