@@ -213,12 +213,15 @@ public class GameController : MonoBehaviour {
 			int x = Int32.Parse (sprejeto [1]);
 			int y = Int32.Parse (sprejeto [2]);
 			player1.Matrika [x, y] = Int32.Parse(sprejeto [3]);
-			/*
-			if (isHost == true) {
-				Button gump = getButtonByName (player1.myBoard, x + "|" + y);
-				gump.GetComponent<Image> ().color = Color.red;
+
+			if (Int32.Parse(sprejeto [3]) > 0) {
+				if (isHost == true) {
+					string ime = x + "|" + y;
+					Button gump = getButtonByName (player1.myBoard, ime);
+					gump.GetComponent<Image> ().color = Color.green;
+				}
 			}
-			*/
+
 
 
 
@@ -226,12 +229,15 @@ public class GameController : MonoBehaviour {
 			int x = Int32.Parse (sprejeto [1]);
 			int y = Int32.Parse (sprejeto [2]);
 			player2.Matrika [x, y] = Int32.Parse(sprejeto [3]);
-			/*
-			if (isHost == false) {
-				Button gump = getButtonByName (player2.myBoard, x + "|" + y);
-				gump.GetComponent<Image> ().color = Color.red;
+
+			if (Int32.Parse(sprejeto [3]) > 0) {
+				if (isHost == false) {
+					string ime = x + "|" + y;
+					Button gump = getButtonByName (player2.myBoard, ime);
+					gump.GetComponent<Image> ().color = Color.green;
+				}
 			}
-			*/
+
 
 		}
 
@@ -242,10 +248,19 @@ public class GameController : MonoBehaviour {
     {
         Button button = getButtonByName(board, txt);
 
-        if (playerTrenutni.myBoard.tag == board.tag) {
+
+
+		if (isHost == true && player1.myBoard.tag == board.tag) {
 			Debug.Log ("Streljas svoj bord -.-");
+			return;
+		} else if (isHost == false && player2.myBoard.tag == board.tag) {
+			Debug.Log ("Streljas svoj bord -.-");
+			return;
+		}
 
 
+		if (playerTrenutni.myBoard.tag == board.tag) {
+			Debug.Log ("Niste vi na vrsti");
 		}
         else {
 			Debug.Log (txt);
