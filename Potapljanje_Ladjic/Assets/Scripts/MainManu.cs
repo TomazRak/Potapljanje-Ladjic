@@ -13,4 +13,12 @@ public class MainManu : MonoBehaviour {
         Debug.Log("QUIT");
         Application.Quit();
     }
+    public void settings()
+    {
+        SceneManager.LoadScene(2);
+    }
+    public void Credits()
+    {
+        SceneManager.LoadScene(3);
+    }
 }

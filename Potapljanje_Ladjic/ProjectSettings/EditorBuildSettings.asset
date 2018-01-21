@@ -11,3 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Main.unity
     guid: b24d513c136f57e4dbc3920bdc9dcb70
+  - enabled: 1
+    path: Assets/settings screen.unity
+    guid: f384e174577932145b37fb4ddf5f2b63
+  - enabled: 1
+    path: Assets/credits.unity
+    guid: b65d1b1ac031ce5409318943f9642789
