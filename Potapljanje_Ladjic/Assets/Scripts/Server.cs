@@ -365,7 +365,7 @@ public class Server : MonoBehaviour {
 
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
-				string posljiMB = "M2|" + i + "|" + j + "|" + matrikaA [i, j];
+				string posljiMB = "M2|" + i + "|" + j + "|" + matrikaB [i, j];
 				Broadcast (posljiMB, povezave);
 			}
 		}

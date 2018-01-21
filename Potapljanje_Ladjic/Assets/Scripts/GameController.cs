@@ -87,6 +87,8 @@ public class GameController : MonoBehaviour {
 		player2.ime = "player2";
         player1.myBoard = board1;
 		player2.myBoard = board2;
+        player1.opBoard = board2;
+        player2.opBoard = board1;
         StartGame();
         //MatrikeDefault();
         //NapolniMatirkeRandom1();
@@ -223,7 +225,7 @@ public class GameController : MonoBehaviour {
 			if (Int32.Parse(sprejeto [3]) > 0) {
 				if (isHost == true) {
 					string ime = x + "|" + y;
-					Button gump = getButtonByName (player1.myBoard, ime);
+					Button gump = getButtonByName (player1.opBoard, ime);
 					gump.GetComponent<Image> ().color = Color.green;
 				}
 			}
@@ -237,15 +239,15 @@ public class GameController : MonoBehaviour {
 			player2.Matrika [x, y] = Int32.Parse(sprejeto [3]);
 
 			if (Int32.Parse(sprejeto [3]) > 0) {
-				if (isHost == false) {
-					string ime = x + "|" + y;
-					Button gump = getButtonByName (player2.myBoard, ime);
+                if (isHost == false) {
+                string ime = x + "|" + y;
+					Button gump = getButtonByName (player2.opBoard, ime);
 					gump.GetComponent<Image> ().color = Color.green;
-				}
-			}
+                }
+            }
 
 
-		}
+        }
 
 
 	}
