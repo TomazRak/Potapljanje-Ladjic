@@ -253,22 +253,21 @@ public class GameController : MonoBehaviour {
     {
         Button button = getButtonByName(board, txt);
 
-
-
-		if (isHost == true && player1.myBoard.tag == board.tag) {
+		/*if (isHost == true && player1.myBoard.tag == board.tag) {
 			Debug.Log ("Streljas svoj bord -.-");
 			return;
 		}
         else if (isHost == false && player2.myBoard.tag == board.tag) {
 			Debug.Log ("Streljas svoj bord -.-");
 			return;
-		}
-
-
-		/*if (playerTrenutni.myBoard.tag == board.tag) {
-			Debug.Log ("Niste vi na vrsti");
 		}*/
-        else {
+
+        //zdaj lahko streljamo
+        if (playerTrenutni.myBoard.tag == board.tag) {
+			Debug.Log ("Niste vi na vrsti");
+		}
+        else
+        {
 			Debug.Log (txt);
 			Debug.Log (playerTrenutni.ime);
 			string[] koordinate = txt.Split ('|');
@@ -284,6 +283,7 @@ public class GameController : MonoBehaviour {
                 //button.GetComponent<Image>().sprite = slika1;
                 button.GetComponentInChildren<Text>().text = "X";
                 button.GetComponentInChildren<Text>().color = Color.red;
+                CheckGameOver();
                 //ResetGameBoard();//TODO : Delete------------------------------------------------------------------------------------------------------------------------------------------------
             }
             else if (playerTrenutni.Matrika [x, y] == -1) {
@@ -305,7 +305,7 @@ public class GameController : MonoBehaviour {
 
     public void CheckGameOver()
     {
-        if (playerTrenutni.noSinked >= 10)
+        if (playerTrenutni.noSinked >= 30 || player1.noSinked >= 30 || player2.noSinked >= 30)
         {
             Debug.Log("GAME OVER");
             doPopup0 = true;
@@ -388,14 +388,15 @@ public class GameController : MonoBehaviour {
     
     void DoWindow0(int windowID)
     {
-        if(GUI.Button(new Rect(10, 30, 80, 20), "Igraj znova"))
+        /*if(GUI.Button(new Rect(10, 30, 80, 20), "Igraj znova"))
         {
             doPopup0 = false;
-            ResetGameBoard();
-            s.reset_matrike();
-        }
-        if(GUI.Button(new Rect(110, 30, 80, 20), "Zapri"))
+            //ResetGameBoard();
+            //s.reset_matrike();
+        }*/
+        if (GUI.Button(new Rect(110, 30, 80, 20), "Zapri"))
         {
+            doPopup0 = false;
             Application.Quit();
         }
     }
@@ -403,7 +404,7 @@ public class GameController : MonoBehaviour {
     {
         //doPopup0 = GUI.Toggle(new Rect(10, 10, 100, 20), doPopup0, "Window 0");
         if (doPopup0)
-            GUI.Window(0, new Rect(10, 10, 200, 60), DoWindow0, "");
+            GUI.Window(0, new Rect(10, 10, 200, 60), DoWindow0, "Igre je konec");
 
     }
 
