@@ -70,14 +70,16 @@ public class GameController : MonoBehaviour {
 			return instance;
 		}
 	}
-    
-
+    /* Tak vstaviš sliko
+    public Sprite slika1;
+    public GameObject btn1;
+    btn1.GetComponent<Image>().sprite = slika1;
+    */
     // Use this for initialization
     void Start()
     {
 
-		//Client c = FindObjectOfType<Client> ();
-		
+        //Client c = FindObjectOfType<Client> ();
 		HostMeni.SetActive (false);
 		ConnectMeni.SetActive (false);
 		DontDestroyOnLoad( gameObject );
@@ -247,7 +249,6 @@ public class GameController : MonoBehaviour {
 
 
 	}
-
     public void Strel(string txt, GameObject board)
     {
         Button button = getButtonByName(board, txt);
@@ -279,6 +280,7 @@ public class GameController : MonoBehaviour {
 				Debug.Log ("Zadetek");
                 button.interactable = false;
                 button.GetComponent<Image>().color = Color.black;
+                //button.GetComponent<Image>().sprite = slika1;
                 button.GetComponentInChildren<Text>().text = "X";
                 button.GetComponentInChildren<Text>().color = Color.red;
                 //ResetGameBoard();//TODO : Delete------------------------------------------------------------------------------------------------------------------------------------------------

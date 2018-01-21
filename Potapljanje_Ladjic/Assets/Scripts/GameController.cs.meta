@@ -1,11 +1,19 @@
 fileFormatVersion: 2
 guid: c29e8f0b81725924a86382b22e9c6346
-timeCreated: 1511520199
+timeCreated: 1516537021
 licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - board1: {instanceID: 0}
+  - board2: {instanceID: 0}
+  - glavniMeni: {instanceID: 0}
+  - HostMeni: {instanceID: 0}
+  - ConnectMeni: {instanceID: 0}
+  - ServerPrefab: {instanceID: 0}
+  - ClinetPrefab: {instanceID: 0}
+  - slika1: {fileID: 21300000, guid: cd2ab1d0afa277a40802c54180d1286d, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
