@@ -373,6 +373,15 @@ public class Server : MonoBehaviour {
 
 
 	}
+    public void reset_matrike()
+    {
+        if (SteviloPovezav == 2)
+        {
+            MatrikeDefault();
+            NapolniMatirkeRandom1();
+            NapolniMatirkeRandom2();
+        }
+    }
 
 }
 

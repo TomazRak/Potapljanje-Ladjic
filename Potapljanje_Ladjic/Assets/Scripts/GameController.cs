@@ -46,6 +46,10 @@ public class GameController : MonoBehaviour {
 	public bool M1Set=false;
 	public bool M2Set=false;
 
+    Server s;
+    Client c;
+    public bool doPopup0 = false;
+
 
     public List <MonoBehaviour> eventSubscribedScripts= new List<MonoBehaviour>();
 	public int gameEventID = 0;
@@ -101,10 +105,10 @@ public class GameController : MonoBehaviour {
 	public void OnHostButton(){
 
 		try {
-			Server s=Instantiate(ServerPrefab).GetComponent<Server>();
+			s=Instantiate(ServerPrefab).GetComponent<Server>();
 			s.init();
 
-			Client c = Instantiate(ClinetPrefab).GetComponent<Client>();
+			c = Instantiate(ClinetPrefab).GetComponent<Client>();
 			c.isHost=true;
 			c.povezan("127.0.0.1");
 
@@ -301,7 +305,21 @@ public class GameController : MonoBehaviour {
         if (playerTrenutni.noSinked >= 10)
         {
             Debug.Log("GAME OVER");
-            ResetGameBoard();
+            doPopup0 = true;
+        }
+    }
+    public class ExampleClass : MonoBehaviour
+    {
+        public Rect windowRect = new Rect(20, 20, 120, 50);
+        void OnGUI()
+        {
+            windowRect = GUI.Window(0, windowRect, DoMyWindow, "My Window");
+        }
+        void DoMyWindow(int windowID)
+        {
+            if (GUI.Button(new Rect(10, 20, 100, 20), "Hello World"))
+                print("Got a click");
+
         }
     }
 
@@ -378,6 +396,28 @@ public class GameController : MonoBehaviour {
         SetVisible(board2, true);
     }
 
-
     
+    void DoWindow0(int windowID)
+    {
+        if(GUI.Button(new Rect(10, 30, 80, 20), "Igraj znova"))
+        {
+            doPopup0 = false;
+            ResetGameBoard();
+            s.reset_matrike();
+        }
+        if(GUI.Button(new Rect(110, 30, 80, 20), "Zapri"))
+        {
+            Application.Quit();
+        }
+    }
+    void OnGUI()
+    {
+        //doPopup0 = GUI.Toggle(new Rect(10, 10, 100, 20), doPopup0, "Window 0");
+        if (doPopup0)
+            GUI.Window(0, new Rect(10, 10, 200, 60), DoWindow0, "");
+
+    }
+
+
+
 }
