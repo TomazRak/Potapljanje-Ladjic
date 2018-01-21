@@ -45,7 +45,7 @@ public class GameController : MonoBehaviour {
 	public bool isHost = false;
 	public bool M1Set=false;
 	public bool M2Set=false;
-
+    public GameObject video1;
     Server s;
     Client c;
     public bool doPopup0 = false;
@@ -78,7 +78,7 @@ public class GameController : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-
+        video1.SetActive(false);
         //Client c = FindObjectOfType<Client> ();
 		HostMeni.SetActive (false);
 		ConnectMeni.SetActive (false);
@@ -309,6 +309,7 @@ public class GameController : MonoBehaviour {
     {
         if (playerTrenutni.noSinked >= 30 || player1.noSinked >= 30 || player2.noSinked >= 30)
         {
+            video1.SetActive(true);
             Debug.Log("GAME OVER");
             doPopup0 = true;
         }
