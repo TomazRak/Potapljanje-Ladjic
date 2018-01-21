@@ -258,15 +258,16 @@ public class GameController : MonoBehaviour {
 		if (isHost == true && player1.myBoard.tag == board.tag) {
 			Debug.Log ("Streljas svoj bord -.-");
 			return;
-		} else if (isHost == false && player2.myBoard.tag == board.tag) {
+		}
+        else if (isHost == false && player2.myBoard.tag == board.tag) {
 			Debug.Log ("Streljas svoj bord -.-");
 			return;
 		}
 
 
-		if (playerTrenutni.myBoard.tag == board.tag) {
+		/*if (playerTrenutni.myBoard.tag == board.tag) {
 			Debug.Log ("Niste vi na vrsti");
-		}
+		}*/
         else {
 			Debug.Log (txt);
 			Debug.Log (playerTrenutni.ime);
@@ -308,20 +309,6 @@ public class GameController : MonoBehaviour {
         {
             Debug.Log("GAME OVER");
             doPopup0 = true;
-        }
-    }
-    public class ExampleClass : MonoBehaviour
-    {
-        public Rect windowRect = new Rect(20, 20, 120, 50);
-        void OnGUI()
-        {
-            windowRect = GUI.Window(0, windowRect, DoMyWindow, "My Window");
-        }
-        void DoMyWindow(int windowID)
-        {
-            if (GUI.Button(new Rect(10, 20, 100, 20), "Hello World"))
-                print("Got a click");
-
         }
     }
 
