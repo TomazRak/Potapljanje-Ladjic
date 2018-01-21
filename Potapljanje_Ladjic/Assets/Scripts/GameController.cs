@@ -223,7 +223,7 @@ public class GameController : MonoBehaviour {
 			player1.Matrika [x, y] = Int32.Parse(sprejeto [3]);
 
 			if (Int32.Parse(sprejeto [3]) > 0) {
-				if (isHost == true) {
+				if (isHost == false) {
 					string ime = x + "|" + y;
 					Button gump = getButtonByName (player1.opBoard, ime);
 					gump.GetComponent<Image> ().color = Color.green;
@@ -239,7 +239,7 @@ public class GameController : MonoBehaviour {
 			player2.Matrika [x, y] = Int32.Parse(sprejeto [3]);
 
 			if (Int32.Parse(sprejeto [3]) > 0) {
-                if (isHost == false) {
+                if (isHost == true) {
                 string ime = x + "|" + y;
 					Button gump = getButtonByName (player2.opBoard, ime);
 					gump.GetComponent<Image> ().color = Color.green;
