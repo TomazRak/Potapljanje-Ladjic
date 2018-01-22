@@ -49,6 +49,8 @@ public class GameController : MonoBehaviour {
     Server s;
     Client c;
     public bool doPopup0 = false;
+    public DialogueManager dMan;
+   
 
 
     public List <MonoBehaviour> eventSubscribedScripts= new List<MonoBehaviour>();
@@ -78,6 +80,7 @@ public class GameController : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        dMan = FindObjectOfType<DialogueManager>();
         video1.SetActive(false);
         //Client c = FindObjectOfType<Client> ();
 		HostMeni.SetActive (false);
@@ -96,7 +99,8 @@ public class GameController : MonoBehaviour {
     }
 
 	private void Update(){
-		
+
+       
 	}
 
 	//za server in client
@@ -266,8 +270,10 @@ public class GameController : MonoBehaviour {
 
         //zdaj lahko streljamo
         if (playerTrenutni.myBoard.tag == board.tag) {
-			Debug.Log ("Niste vi na vrsti");
-		}
+            
+            dMan.ShowBox("Niste vi na vrsti");
+            
+        }
         else
         {
 			Debug.Log (txt);
@@ -289,7 +295,7 @@ public class GameController : MonoBehaviour {
                 //ResetGameBoard();//TODO : Delete------------------------------------------------------------------------------------------------------------------------------------------------
             }
             else if (playerTrenutni.Matrika [x, y] == -1) {
-				Debug.Log ("To polje je bilo ze vstreljeno ");
+                dMan.ShowBox("To polje je bilo ze vstreljeno ");
                 button.interactable = false;
             }
             else if (playerTrenutni.Matrika [x, y] == 0) {
